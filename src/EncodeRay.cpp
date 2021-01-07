@@ -45,6 +45,7 @@ void EncodeRay::read() {
 };
 
 void EncodeRay::stop() {
+  _active = false;
   digitalWrite(_pinIN1, LOW);
   digitalWrite(_pinIN2, LOW);
 }
@@ -78,7 +79,6 @@ void EncodeRay::drive() {
 
   if (voltage == 0) {
     stop();
-    _active = false;
     return;
   }
 
@@ -86,12 +86,11 @@ void EncodeRay::drive() {
 
   //Select the motor to turn, and set the direction and the Voltage
   digitalWrite(_pinIN1, direction);
-  digitalWrite(_pinIN2, !direction); //This is the opposite of the AIN1
+  digitalWrite(_pinIN2, !direction);
   analogWrite(_pinPWM, abs(voltage));
 
   //Finally , make sure STBY is disabled - pull it HIGH
   digitalWrite(_pinSTBY, HIGH);
-
 }
 
 void EncodeRay::update() {
@@ -154,4 +153,12 @@ float EncodeRay::getVoltage(){
 
 void EncodeRay::reverse() {
   _reversed = !_reversed;
+}
+
+
+void EncodeRay::setOrigin() {
+  _targetPos = 0;
+  _pos = 0;
+  _prevPos = 0;
+  stop();
 }

@@ -18,6 +18,7 @@ class EncodeRay {
     float getPosition();
     bool isActive();
     void reverse();
+    void setOrigin();
 
     int cpr = 12;
     int gearRatio;
