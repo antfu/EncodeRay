@@ -30,3 +30,14 @@ void serialEvent() {
   }
 }
 ```
+
+## Install
+
+1. Download the zip file on the [release page](https://github.com/antfu/EncodeRay/releases/latest)
+2. Go to Arduino IDE, navigate to `Sketch > Include Library > Add .ZIP Library...`
+3. Select the downloaded zip
+4. Add `#include <EncodeRay.h>` to your code and enjoy!
+
+## License
+
+MIT
