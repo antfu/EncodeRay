@@ -23,7 +23,6 @@ EncodeRay::EncodeRay(uint8_t pinEN1, uint8_t pinEN2, uint8_t pinIN1, uint8_t pin
   gearRatio = _gearRatio;
   _prevTime = _currTime = micros();
   _encoder = new Encoder(pinEN1, pinEN2);
-  _reversed = false;
   pinMode(pinIN1, OUTPUT);
   pinMode(pinIN2, OUTPUT);
   pinMode(pinPWM, OUTPUT);
@@ -83,7 +82,7 @@ void EncodeRay::drive() {
     return;
   }
 
-  int direction = voltage < 0 ? LOW : HIGH;
+  int direction = voltage < 0 && !_reversed ? LOW : HIGH;
 
   //Select the motor to turn, and set the direction and the Voltage
   digitalWrite(_pinIN1, direction);
@@ -151,4 +150,8 @@ float EncodeRay::getVoltage(){
   }
 
   return voltage;
+}
+
+void EncodeRay::reverse() {
+  _reversed = !_reversed;
 }
